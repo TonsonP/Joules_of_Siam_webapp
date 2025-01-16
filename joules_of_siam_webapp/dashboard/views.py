@@ -1,11 +1,10 @@
 from django.shortcuts import render
+from .service_set.dashboard import generated_data
 
-# Since this projects is small, I decide to keep everything in one place
-def generated_data():
-    pass
 
 def dashboard_home(request):
-    return render(request, 'dashboard_main/index.html')
+    table_data = generated_data()
+    return render(request, 'dashboard_main/index.html', {"table_data": table_data})
 
 def charts(request):
     return render(request, 'dashboard_main/charts.html')
