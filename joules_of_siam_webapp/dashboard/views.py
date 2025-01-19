@@ -1,6 +1,11 @@
 from django.shortcuts import render
-from .service_set.dashboard import generated_data
+from django.http import JsonResponse
+from .service_set.dashboard import generated_data, generated_graph_dh_left_graph
 
+
+def dashboard_home_left_graph(request):
+    data = generated_graph_dh_left_graph()
+    return JsonResponse(data)
 
 def dashboard_home(request):
     table_data = generated_data()
