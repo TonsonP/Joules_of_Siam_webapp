@@ -119,7 +119,7 @@
                             <!-- Primary Card-->
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    <div class="card-body">Primary Card</div>
+                                    <div class="card-body">Project Description</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -127,6 +127,17 @@
                                 </div>
                             </div>
                             <!-- Primary Card Modal-->
+
+                            <style>
+                                /* Since this is the only place that need this, I decide to used inline css. */
+                                .modal-dialog {
+                                    max-width: 900px !important;
+                                }
+                        
+                                .modal-content {
+                                    width: 100%;
+                                }
+                            </style>
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -135,7 +146,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            This is a simple modal that shows up when you click the card.
+                                            {{ project_description }}
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -143,7 +154,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-6">
+                            <!-- <div class="col-xl-3 col-md-6">
                                 <div class="card bg-warning text-white mb-4">
                                     <div class="card-body">Warning Card</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
@@ -151,7 +162,7 @@
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
                                     <div class="card-body">Success Card</div>
@@ -161,7 +172,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-6">
+                            <!-- <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
                                     <div class="card-body">Danger Card</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
@@ -169,14 +180,14 @@
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-area me-1"></i>
-                                        Area Chart Example
+                                        Electricity Peak Consumption
                                     </div>
                                     <div class="card-body"><canvas id="dh_left_graph" width="100%" height="40"></canvas></div>
                                 </div>
@@ -185,9 +196,9 @@
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
+                                        Electricity Consumption categorize by Sector
                                     </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                    <div class="card-body"><canvas id="dh_right_graph" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
                         </div>
@@ -248,7 +259,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         
         <script src="{% static 'assets/charts/dh_left_graph_area.js' %}"></script>
-        <script src="{% static 'assets/demo/chart-bar-demo-2.js' %}"></script>
+        <script src="{% static 'assets/charts/dh_right_graph_area.js' %}"></script>
 
        
 
