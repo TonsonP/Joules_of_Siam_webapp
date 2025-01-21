@@ -14,7 +14,9 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="dashboard_home">Start Bootstrap</a>
+            <a class="navbar-brand ps-3" href="{% url 'dashboard_home' %}">
+                <img src="{% static 'assets/img/Joules_of_Siam_logo.png' %}" alt="Joules of Siam" height="40" width="150">
+            </a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -117,7 +119,15 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                Chart.js is a third party plugin that is used to generate the charts in this template. The charts below have been customized - for further customization options, please visit the official
+                                TODO: insert general description
+                                <a target="_blank" href="https://www.chartjs.org/docs/latest/">Chart.js documentation</a>
+                                .
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                Insert description for area graph below
                                 <a target="_blank" href="https://www.chartjs.org/docs/latest/">Chart.js documentation</a>
                                 .
                             </div>
@@ -127,7 +137,7 @@
                                 <i class="fas fa-chart-area me-1"></i>
                                 Area Chart Example
                             </div>
-                            <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
+                            <div class="card-body"><canvas id="testdoughnut" width="100%" height="30"></canvas></div>
                             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                         </div>
                         <div class="row">
@@ -171,7 +181,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="{% static 'js/scripts.js' %}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="{% static 'assets/demo/chart-area-demo.js' %}"></script>
+        <script src="{% static 'assets/charts/charts_top_graph_area.js' %}"></script>
         <script src="{% static 'assets/demo/chart-bar-demo.js' %}"></script>
         <script src="{% static 'assets/demo/chart-pie-demo.js' %}"></script>
     </body>

@@ -1,4 +1,7 @@
 import pandas as pd
+import pickle
+
+data_path = "/app/joules_of_siam_webapp/dashboard/data/"
 
 # Since this projects is small, I decide to keep everything in one service set
 def get_data_strech():
@@ -7,7 +10,7 @@ def get_data_strech():
     Basically just reading from csv using pandas and convert it to record format.
     '''
 
-    jos_data_strech_path = "/app/joules_of_siam_webapp/dashboard/Joules_of_Siam_Data - Dataset_Strech.csv"
+    jos_data_strech_path = data_path + "Joules_of_Siam_Data - Dataset_Strech.csv"
     df = pd.read_csv(jos_data_strech_path)
 
     # Convert date to make year format look nicer
@@ -21,7 +24,7 @@ def get_data_consumption():
     Basically just reading from csv using pandas and convert it to record format.
     '''
 
-    jos_data_electricity_consumption = "/app/joules_of_siam_webapp/dashboard/Joules_of_Siam_Data - Electricity_Consumption_Monthly.csv"
+    jos_data_electricity_consumption = data_path + "Joules_of_Siam_Data - Electricity_Consumption_Monthly.csv"
     df = pd.read_csv(jos_data_electricity_consumption)
 
     return df
@@ -126,5 +129,68 @@ def get_projects_description():
 
     return description
 
+def get_features_explaination():
+
+    features_explaination = '''
+    Date: Basically, Year-Month-Day.
+    Population: Population of people in Thailand at a specific time, unit in Million.
+    Temperature: Temperature in Celsius at a specific time.
+    CPI (Consumer Price Index): A measure that examines the weighted average of prices of a basket of consumer goods and services, used to track inflation over time.
+    GDP (Gross Domestic Product): The total market value of all final goods and services produced within a country in a given period, typically measured annually or quarterly.
+    Peak: Electricity peak usage, unit in Megawatts. This refers to the highest demand for electricity at a specific time.
+    '''
+
+    return features_explaination
+
+def get_data_electricity_generation_by_sector():
+    '''
+    Load .pkl file and transform data for doughnut graph
+    '''
+
+    jos_data_generation_by_sector_path = data_path + "df_generation_sector_2022.pkl"
+    with open(jos_data_generation_by_sector_path, "rb") as file:
+        jos_data_generation_by_sector = pickle.load(file)
+
+    labels = jos_data_generation_by_sector.index[0:7].to_list()
+    values = jos_data_generation_by_sector[0:7].to_list()
+
+    # Basically change 2022.0 -> 2022
+    values[0] = int(values[0])
+
+    # Change 6.5 -> 6
+    values[1] = int(values[1])
+
+    data = {
+        "labels": labels,
+        "values": values
+    }
+
+    return data
+
+def get_data_electricitiy_generation_by_type():
+
+    '''
+    Load .pkl file and transform data for doughnut graph
+    '''
+
+    jos_data_generation_by_type_path = data_path + "df_generation_type_2022.pkl"
+    with open(jos_data_generation_by_type_path, "rb") as file:
+        jos_data_generation_by_type = pickle.load(file)
+
+    labels = jos_data_generation_by_type.index[0:7].to_list()
+    values = jos_data_generation_by_type[0:7].to_list()
+
+    # Basically change 2022.0 -> 2022
+    values[0] = int(values[0])
+
+    # Change 6.5 -> 6
+    values[1] = int(values[1])
+
+    data = {
+        "labels": labels,
+        "values": values
+    }
+
+    return data
 
     

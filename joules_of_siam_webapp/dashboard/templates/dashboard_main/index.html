@@ -15,7 +15,12 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="{% url 'dashboard_home' %}">Joules of Siam</a>
+            <!-- <a class="navbar-brand ps-3" href="{% url 'dashboard_home' %}">Joules of Siam</a> -->
+
+            <a class="navbar-brand ps-3" href="{% url 'dashboard_home' %}">
+                <img src="{% static 'assets/img/Joules_of_Siam_logo.png' %}" alt="Joules of Siam" height="40" width="150">
+            </a>
+
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -118,7 +123,7 @@
                         <div class="row">
                             <!-- Primary Card-->
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <div class="card bg-primary text-white mb-4" data-bs-toggle="modal" data-bs-target="#dh_project_description_card_modal">
                                     <div class="card-body">Project Description</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
@@ -138,15 +143,15 @@
                                     width: 100%;
                                 }
                             </style>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="dh_project_description_card_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Project Description</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            {{ project_description }}
+                                            <p class="card-text text-muted">{{ project_description }}</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -164,17 +169,36 @@
                                 </div>
                             </div> -->
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
+                                <div class="card bg-success text-white mb-4" data-bs-toggle="modal" data-bs-target="#dh_features_explaination_card_modal">
+                                    <div class="card-body">Features Explaination</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                        <a class="small text-white stretched-link" href="#" data-bs-toggle="tooltip" title="Click to view more details">View Details</a>
+                                        <div class="small text-white" data-bs-toggle="tooltip" title="More options"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="dh_features_explaination_card_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Features Explaination</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- <p class="card-text text-muted">{{ features_explaination }}</p> -->
+                                            <pre class="card-text text-muted">{{ features_explaination }}</pre>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
+                                    <div class="card-body">Danger Card</div> d
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
