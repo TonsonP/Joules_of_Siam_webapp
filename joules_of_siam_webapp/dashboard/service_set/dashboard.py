@@ -147,18 +147,21 @@ def get_data_electricity_generation_by_sector():
     Load .pkl file and transform data for doughnut graph
     '''
 
-    jos_data_generation_by_sector_path = data_path + "df_generation_sector_2022.pkl"
+    jos_data_generation_by_sector_path = data_path + "df_consumption_sector_2022.pkl"
     with open(jos_data_generation_by_sector_path, "rb") as file:
         jos_data_generation_by_sector = pickle.load(file)
 
-    labels = jos_data_generation_by_sector.index[0:7].to_list()
-    values = jos_data_generation_by_sector[0:7].to_list()
+    labels = jos_data_generation_by_sector.index[2:7].to_list()
+    values = jos_data_generation_by_sector[2:7].to_list()
 
     # Basically change 2022.0 -> 2022
     values[0] = int(values[0])
 
     # Change 6.5 -> 6
     values[1] = int(values[1])
+
+    # round values
+    values[2:7] = [round(i, 2) for i in values[2:7]]
 
     data = {
         "labels": labels,
@@ -186,6 +189,9 @@ def get_data_electricitiy_generation_by_type():
     # Change 6.5 -> 6
     values[1] = int(values[1])
 
+    # round values
+    values[2:7] = [round(i, 2) for i in values[2:7]]
+
     data = {
         "labels": labels,
         "values": values
@@ -193,4 +199,21 @@ def get_data_electricitiy_generation_by_type():
 
     return data
 
-    
+def get_data_electricity_consumption_per_months(sector):
+    '''
+    Load .pkl file and transform data for bar chart
+    '''
+
+    jos_data_consumption_group_by_month_path = data_path + "df_consumption_month_2022.pkl"
+
+    with open(jos_data_consumption_group_by_month_path, "rb") as file:
+        df = pickle.load(file)
+        # Remove date index
+        df = df.reset_index(drop=True)
+
+    data = {
+        "labels": df["Month"].to_list(),
+        "values": [round(i, 2) for i in df[sector].to_list()]
+    }
+
+    return data
