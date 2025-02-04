@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Charts - SB Admin</title>
+        <title>Predictions</title>
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -51,9 +51,9 @@
                             </a>
                             
                             <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="{% url 'predictions' %}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
-                                Predictions
+                            <a class="nav-link" href="/charts/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
                             </a>
                         </div>
                     </div>
@@ -66,91 +66,45 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Charts</h1>
+                        <h1 class="mt-4">Predictions</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="{% url 'dashboard_home' %}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Charts</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                This page represent electricity generation and electricity consumption.
-                                <br>
+                                <p class="card-text text-muted">{{ predictions_page_description | linebreaksbr }}</p>
+                                <!-- <p class="card-text text-muted">{{ get_predictions_page_description | linebreaksbr}}</p> -->
                             </div>
                         </div>
 
-                        <!-- <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-area me-1"></i>
-                                Area Chart Example
-                            </div>
-                            <div class="card-body"><canvas id="testdoughnut" width="100%" height="30"></canvas></div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                        </div> -->
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Electricity Generation Group by Type (Unit: GWh)
-                                    </div>
-                                    <div class="card-body"><canvas id="Charts_Doughnut_Electricity_Generation" width="100%" height="50"></canvas></div>
-                                    <div class="card-footer small text-muted">Updated 2023-02-01</div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-pie me-1"></i>
-                                        Electricity Consumption Group by Sector (Unit: GWh)
-                                    </div>
-                                    <div class="card-body"><canvas id="Charts_Doughnut_Electricity_Consumption" width="100%" height="50"></canvas></div>
-                                    <div class="card-footer small text-muted">Updated 2023-02-01</div>
-                                </div>
-                            </div>
+                        <div class="collapsible", id="collapsible">
+                            <span>Input Features</span>
+                            <i class="fa-solid fa-chevron-right" onclick="changeIcon(this)"></i>
                         </div>
 
-                        <div>
-                            <label for="dataSelector">Select Data:</label>
-                            <select id="dataSelector">
-                              <option value="Residential">Residential</option>
-                              <option value="Business">Business</option>
-                              <option value="Industrial">Industrial</option>
-                              <option value="Government and Non-Profit">Government and Non-Profit</option>
-                              <option value="Other sector">Others</option>
-                              <option value="Grand Total">Grand Total</option>
-                            </select>
-                          </div>
+
+                        <div class="collapsing_content_input_features" id="collapseContent" style="display: none;">
+                            <p class="card-text text-muted">{{ input_features_explaination | linebreaksbr }}</p>
+                        </div> 
+
+                        <div class="container">
+                            <input type="number" id="gdp_field" placeholder="GDP Growth Percentage", value="1.2">
+                            <input type="number" id="population_field" placeholder="Population Growth Percentage", value="0.9">
+                            <input type="number" id="cpi_growth_field" placeholder="CPI Growth Percentage", value="0.9">
+                            <button onclick="electricity_consumption_prediction_charts()">Submit</button>
+                        </div>
+                    
                           
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-area me-1"></i>
-                                Energy Consumption Group by Month, seperated by Sector (Unit:GWh)
+                                Energy Consumption Forecasting
                             </div>
-                            <div class="card-body"><canvas id="energy_consumption_group_by_month" width="100%" height="30"></canvas></div>
+                            <div class="card-body"><canvas id="energy_consumption_forecasting" width="100%" height="30"></canvas></div>
                             <div class="card-footer small text-muted">Updated 2023-02-01</div>
                         </div>
-                        <!-- <div class="row">
-                            <div class="col-lg-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
-                                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-pie me-1"></i>
-                                        Pie Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
-                                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                                </div>
-                            </div>
-                        </div> -->
+        
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
@@ -167,12 +121,13 @@
                 </footer>
             </div>
         </div>
+        <!-- There is some problem to trigger predictions graph during page load via js. So, this will do for now. -->
+        <body onload="electricity_consumption_prediction_charts();"></body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="{% static 'js/scripts.js' %}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> -->
-        <script src="{% static 'assets/charts/charts_electricity_generation.js' %}"></script>
-        <script src="{% static 'assets/charts/charts_electricity_consumption.js' %}"></script>
-        <script src="{% static 'assets/charts/charts_electricity_consumption_group_by_months.js' %}"></script>
+        <script src="{% static 'js/scripts.js' %}"></script>
+        <script src="{% static 'assets/charts/charts_electricity_consumption_predictions.js' %}" defer></script>
+        <script src="{% static 'js/toggle_collapse.js' %}"></script>
     </body>
 </html>

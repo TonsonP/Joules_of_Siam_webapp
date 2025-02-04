@@ -1,5 +1,6 @@
 import pandas as pd
 import pickle
+from dashboard.service_set.forecasting import forecasting
 
 data_path = "/app/joules_of_siam_webapp/dashboard/data/"
 
@@ -35,6 +36,7 @@ def generated_data():
     df = get_data_strech()
 
     return df.to_dict(orient='records')
+
 
 def generated_graph_dh_left_graph():
     '''
@@ -217,3 +219,85 @@ def get_data_electricity_consumption_per_months(sector):
     }
 
     return data
+
+def get_input_features_explaination():
+
+    input_features_explaination = '''
+    Electricity consumption is influenced by multiple factors. 
+    Based on our research, we have chosen GDP, CPI, and Population as key features. 
+    Since this is a long-term prediction, we use the growth/shrinking percentages of 
+    GDP, Population, and CPI (e.g., 0.92) as model inputs instead of their 
+    absolute values.
+
+    TLDR: Basically, just represent features as trend using percentage. 
+
+    '''
+
+
+    return input_features_explaination
+
+def get_predictions_page_description():
+
+    predictions_page_description = '''
+        This graph visualizes energy consumption forecasting based on historical peak consumption data and various predictive models. The key elements in the graph are:
+
+        1. Historical Peak Consumption (Gray Dots)
+
+            • Each dot represents the peak energy consumption for a given month over time.
+
+            • The trend shows a gradual increase in energy demand over the years.
+
+        2. Forecasted Energy Consumption
+
+        • Predictions are made using different models:
+
+            • LSTM Forecasting (Blue Line): A deep learning model capturing sequential dependencies.
+
+            • XGBoost Forecasting (Green Line): A gradient-boosting method that accounts for feature importance.
+
+            • LASSO Forecasting (Red Line): A linear regression model that emphasizes important variables.
+
+        3. Capacity Constraints
+
+            • Capacity Alert Threshold (Black Dashed Line): Represents a warning level where consumption approaches the limit.
+
+            • Generation Capacity (Purple Dashed Line): The maximum energy generation capability as of 2022.
+
+        How the Graph Works
+
+        • Users can input three feature values at the top to adjust model parameters.
+
+        • Clicking Submit sends the inputs to the backend, which predicts future energy consumption.
+
+        • The forecasted values extend from the last available historical data into the future.
+
+        • If the forecasted consumption (colored lines) exceeds the Capacity Alert Threshold or Generation Capacity, it signals potential risks for energy supply shortages.
+
+        Insights
+
+        The forecasted values indicate whether energy consumption might exceed generation capacity in the coming years.
+
+        If consumption surpasses the alert threshold, energy planning strategies (such as infrastructure expansion or demand-side management) may be needed.
+        '''
+    return predictions_page_description
+
+
+def forecasting_prediction(gdp, population, cpi):
+
+    gdp = float(gdp)
+    population = float(population)
+    cpi = float(cpi)
+
+    forecast = forecasting(gdp, population, cpi)
+    forecast_values = forecast.plotting_value
+
+    with open("/app/joules_of_siam_webapp/dashboard/data/Actual_values.pkl", "rb") as file:
+        historical_values = pickle.load(file)
+        historical_values = historical_values.reset_index()
+
+    full_forecast_prediction = {
+        "historical": historical_values.to_dict(orient="list"),
+        "forecasting": forecast_values.to_dict(orient="list")
+    }
+
+    return full_forecast_prediction

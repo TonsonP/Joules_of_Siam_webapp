@@ -10,4 +10,6 @@ urlpatterns = [
     path('_get_charts_electricity_consumption_graph/', views.charts_electricity_consumption_graph, name="_get_charts_electricity_consumption_graph"),
     path('_post_charts_electricity_consumption_group_by_month_graph', views.charts_electricity_consumption_group_by_month, name="_post_charts_electricity_consumption_group_by_month_graph"),
     path('tables/', views.tables, name='tables'),
+    path('predictions/', views.predictions, name='predictions'),
+    path('_prediction_electricity_comsumption_forecasting', views.prediction_electricity_comsumption_forecasting, name="_prediction_electricity_comsumption_forecasting")
 ]
