@@ -26,6 +26,8 @@ docker run -d --name joules_of_siam_webapp \
   -p 8000:8000 \
   joules_of_siam_webapp
 ```
+Note: you might need to change CMD command in `./docker/Dockerfile`
+
 
 Bootstrap templates
 https://startbootstrap.com/template/sb-admin
